@@ -4,7 +4,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>多保單整合智能試算 v7</title>
+<title>多保單整合智能試算 v87</title>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@700;900&family=Noto+Sans+TC:wght@400;500;700;900&family=DM+Mono:wght@400;500;700&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
 <style>
@@ -98,7 +98,7 @@ tr.grand td{color:#f0c060;font-weight:900;font-size:13px;padding:12px 8px;border
 
 td.group-start, th.group-start{border-left:2.5px solid var(–border)!important}
 td.total-start, th.total-start{border-left:3px solid var(–ink)!important}
-.status-note{font-family:‘Noto Sans TC’,sans-serif;font-size:10px;color:var(–muted);font-weight:700;white-space:normal;min-width:70px}
+.status-note{font-family:'Noto Sans TC',sans-serif;font-size:10px;color:var(–muted);font-weight:700;white-space:normal;min-width:70px}
 
 /* ── Per-year ratio table ── */
 .ratio-section{margin-top:10px;border-top:1.5px dashed var(–border2);padding-top:10px}
@@ -110,12 +110,12 @@ td.total-start, th.total-start{border-left:3px solid var(–ink)!important}
 .ratio-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(110px,1fr));gap:6px;margin-top:8px}
 .ratio-row{display:flex;align-items:center;gap:5px;background:var(–paper2);border:1.5px solid var(–border2);border-radius:7px;padding:5px 8px}
 .ratio-row label{font-size:10px;font-weight:700;color:var(–muted);min-width:36px;white-space:nowrap}
-.ratio-row input{width:52px;border:1.5px solid var(–border);border-radius:5px;padding:4px 6px;font-family:‘DM Mono’,monospace;font-size:12px;font-weight:700;color:var(–ink);background:var(–paper);outline:none;text-align:right}
+.ratio-row input{width:52px;border:1.5px solid var(–border);border-radius:5px;padding:4px 6px;font-family:'DM Mono',monospace;font-size:12px;font-weight:700;color:var(–ink);background:var(–paper);outline:none;text-align:right}
 .ratio-row input:focus{border-color:var(–A)}
 .ratio-row .pct{font-size:10px;color:var(–muted);font-weight:700}
 .ratio-row.auto-fill{background:var(–warn-bg);border-color:#ddc060}
 .ratio-row.auto-fill label{color:var(–warn)}
-td.pct-cell{font-family:‘DM Mono’,monospace;font-size:11px;color:var(–purple);font-weight:700}
+td.pct-cell{font-family:'DM Mono',monospace;font-size:11px;color:var(–purple);font-weight:700}
 </style>
 
 </head>
@@ -157,7 +157,7 @@ td.pct-cell{font-family:‘DM Mono’,monospace;font-size:11px;color:var(–purp
   <div class="settings-body">
     <div class="sg P">
       <h4>客戶資料</h4>
-      <div class="f"><label>客戶姓名</label><input id="clientName" value="張婉如" oninput="syncHeader()"></div>
+      <div class="f"><label>客戶姓名</label><input id="clientName" value="婉如" oninput="syncHeader()"></div>
       <div class="f"><label>起始年齡</label><input id="clientAge" type="number" value="74" oninput="syncHeader()"></div>
     </div>
     <div class="sg G">
@@ -369,23 +369,23 @@ function addPolicy(data={}){
 </div>`;
 ```
 
-document.getElementById(‘policyList’).appendChild(div);
+document.getElementById('policyList').appendChild(div);
 toggleFixed(id);
 buildRatioGrid(id);
 recalc();
 }
 function updatePolicyTitle(id){
 const n=document.getElementById(`p_name_${id}`).value||`保單 ${id+1}`;
-const c=document.getElementById(`p_company_${id}`).value||‘保險公司’;
-const no=document.getElementById(`p_no_${id}`).value||’’;
+const c=document.getElementById(`p_company_${id}`).value||'保險公司';
+const no=document.getElementById(`p_no_${id}`).value||'';
 document.getElementById(`policyTitle_${id}`).textContent=n;
 document.getElementById(`policySub_${id}`).textContent=`${c} ${no}`;
 }
 function toggleFixed(id){
 const mode=document.getElementById(`p_mode_${id}`).value;
 const card=document.getElementById(`policy_${id}`);
-if(mode===‘table’||mode===‘hybrid’) card.classList.add(‘use-table’);
-else card.classList.remove(‘use-table’);
+if(mode==='table'||mode==='hybrid') card.classList.add('use-table');
+else card.classList.remove('use-table');
 }
 function removePolicy(id){
 const el=document.getElementById(`policy_${id}`);
@@ -393,13 +393,13 @@ if(el) el.remove();
 recalc();
 }
 function getPolicies(){
-return […document.querySelectorAll(’.policy-card’)].map(card=>{
-const id=card.id.replace(‘policy_’,’’);
+return […document.querySelectorAll('.policy-card')].map(card=>{
+const id=card.id.replace('policy_','');
 return {
 id,
 name:document.getElementById(`p_name_${id}`).value||`保單 ${id}`,
-company:document.getElementById(`p_company_${id}`).value||’’,
-no:document.getElementById(`p_no_${id}`).value||’’,
+company:document.getElementById(`p_company_${id}`).value||'',
+no:document.getElementById(`p_no_${id}`).value||'',
 start:+document.getElementById(`p_start_${id}`).value||0,
 rate:(+document.getElementById(`p_rate_${id}`).value||0)/100,
 mode:document.getElementById(`p_mode_${id}`).value,
@@ -407,7 +407,7 @@ fixed:parseTable(document.getElementById(`p_fixed_${id}`).value),
 growthTable:parseTable(document.getElementById(`p_growth_${id}`).value),
 startYear:+document.getElementById(`p_startYear_${id}`).value||1,
 priority:+document.getElementById(`p_priority_${id}`).value||1,
-canPrincipal:document.getElementById(`p_canPrincipal_${id}`).value===‘1’,
+canPrincipal:document.getElementById(`p_canPrincipal_${id}`).value==='1',
 floor:+document.getElementById(`p_floor_${id}`).value||0,
 cap:+document.getElementById(`p_cap_${id}`).value||0,
 capUsed:0,
@@ -417,7 +417,7 @@ balance:+document.getElementById(`p_start_${id}`).value||0
 }).sort((a,b)=>a.priority-b.priority);
 }
 function hasOfficialTable(policy, yearIndex){
-return (policy.mode===‘table’||policy.mode===‘hybrid’) && policy.fixed && policy.fixed.length && yearIndex < policy.fixed.length;
+return (policy.mode==='table'||policy.mode==='hybrid') && policy.fixed && policy.fixed.length && yearIndex < policy.fixed.length;
 }
 
 function getPolicyStart(policy, yearIndex){
@@ -439,7 +439,7 @@ let baseGrowth = 0;
 
 if(policy.growthTable && policy.growthTable.length && yearIndex < policy.growthTable.length){
 baseGrowth = policy.growthTable[yearIndex];
-}else if((policy.mode===‘table’||policy.mode===‘hybrid’) && policy.fixed.length && yearIndex + 1 < policy.fixed.length){
+}else if((policy.mode==='table'||policy.mode==='hybrid') && policy.fixed.length && yearIndex + 1 < policy.fixed.length){
 baseGrowth = Math.max(0, policy.fixed[yearIndex + 1] - policy.fixed[yearIndex]);
 }else{
 baseGrowth = actualStart * policy.rate;
@@ -454,29 +454,29 @@ return Math.max(0, baseGrowth);
 }
 // ── Ratio helpers ─────────────────────────────────────────────────────
 function toggleRatioMode(id){
-const mode = document.querySelector(`input[name="ratio_mode_${id}"]:checked`)?.value||‘priority’;
+const mode = document.querySelector(`input[name="ratio_mode_${id}"]:checked`)?.value||'priority';
 const box = document.getElementById(`ratioBox_${id}`);
-if(box) box.style.display = mode===‘ratio’ ? ‘block’ : ‘none’;
+if(box) box.style.display = mode==='ratio' ? 'block' : 'none';
 recalc();
 }
 
 function buildRatioGrid(id){
-const years = +document.getElementById(‘years’).value||12;
+const years = +document.getElementById('years').value||12;
 const grid = document.getElementById(`ratioGrid_${id}`);
 if(!grid) return;
 // Preserve existing values
 const existing = {};
-grid.querySelectorAll(’.ratio-row’).forEach(row=>{
+grid.querySelectorAll('.ratio-row').forEach(row=>{
 const yr = +row.dataset.yr;
-const inp = row.querySelector(‘input’);
-if(inp && inp.value!==’’) existing[yr] = inp.value;
+const inp = row.querySelector('input');
+if(inp && inp.value!=='') existing[yr] = inp.value;
 });
-grid.innerHTML = ‘’;
+grid.innerHTML = '';
 for(let y=1;y<=years;y++){
-const row = document.createElement(‘div’);
-row.className = ‘ratio-row’;
+const row = document.createElement('div');
+row.className = 'ratio-row';
 row.dataset.yr = y;
-const hasVal = existing[y]!==undefined && existing[y]!==’’;
+const hasVal = existing[y]!==undefined && existing[y]!=='';
 row.innerHTML = `<label>第${y}年</label><input type="number" min="0" max="100" step="1" placeholder="沿用" value="${hasVal?existing[y]:''}" title="${hasVal?'':'未填寫將沿用上一年比例'}" onchange="recalc()"><span class="pct">%</span>`;
 grid.appendChild(row);
 }
@@ -486,27 +486,27 @@ function fillRatioEvenly(id){
 const grid = document.getElementById(`ratioGrid_${id}`);
 if(!grid) return;
 // Count active policies using ratio mode
-const activePolicies = […document.querySelectorAll(’.policy-card’)].filter(c=>{
-const pid = c.id.replace(‘policy_’,’’);
-return document.querySelector(`input[name="ratio_mode_${pid}"]:checked`)?.value===‘ratio’;
+const activePolicies = […document.querySelectorAll('.policy-card')].filter(c=>{
+const pid = c.id.replace('policy_','');
+return document.querySelector(`input[name="ratio_mode_${pid}"]:checked`)?.value==='ratio';
 });
 const share = activePolicies.length>0 ? Math.round(100/activePolicies.length) : 100;
-grid.querySelectorAll(‘input’).forEach(inp=>{ inp.value=share; });
+grid.querySelectorAll('input').forEach(inp=>{ inp.value=share; });
 recalc();
 }
 
 function getRatioForPolicy(id, yearIndex){
 // yearIndex is 0-based; year label is 1-based
-const mode = document.querySelector(`input[name="ratio_mode_${id}"]:checked`)?.value||‘priority’;
-if(mode!==‘ratio’) return null; // null = use priority mode
+const mode = document.querySelector(`input[name="ratio_mode_${id}"]:checked`)?.value||'priority';
+if(mode!=='ratio') return null; // null = use priority mode
 const grid = document.getElementById(`ratioGrid_${id}`);
 if(!grid) return null;
-const rows = grid.querySelectorAll(’.ratio-row’);
+const rows = grid.querySelectorAll('.ratio-row');
 let lastVal = null;
 for(let r of rows){
 const yr = +r.dataset.yr;
-const inp = r.querySelector(‘input’);
-const v = inp.value!==’’ ? +inp.value : null;
+const inp = r.querySelector('input');
+const v = inp.value!=='' ? +inp.value : null;
 if(v!==null) lastVal = v;
 if(yr === yearIndex+1) return lastVal; // carry-forward
 }
@@ -515,20 +515,20 @@ return lastVal;
 
 // Rebuild ratio grids when year count changes
 function rebuildAllRatioGrids(){
-document.querySelectorAll(’.policy-card’).forEach(card=>{
-const id = card.id.replace(‘policy_’,’’);
+document.querySelectorAll('.policy-card').forEach(card=>{
+const id = card.id.replace('policy_','');
 buildRatioGrid(id);
 });
 }
 
 function recalc(){
 syncHeader();
-const FX=+document.getElementById(‘fx’).value||31;
-const targetTWD=+document.getElementById(‘targetTWD’).value||120000;
+const FX=+document.getElementById('fx').value||31;
+const targetTWD=+document.getElementById('targetTWD').value||120000;
 const targetUSD=targetTWD/FX;
-const years=+document.getElementById(‘years’).value||12;
-const rocStart=+document.getElementById(‘rocStart’).value||115;
-const ageStart=+document.getElementById(‘clientAge’).value||0;
+const years=+document.getElementById('years').value||12;
+const rocStart=+document.getElementById('rocStart').value||115;
+const ageStart=+document.getElementById('clientAge').value||0;
 const policies=getPolicies();
 const rows=[];
 
@@ -633,25 +633,25 @@ renderTable(rows,policies,FX);
 setTimeout(function(){ renderCharts(rows,policies,targetTWD,FX); }, 80);
 }
 function renderSummary(rows,targetTWD){
-if(!document.getElementById(‘summaryStatusInput’).value.trim()){
+if(!document.getElementById('summaryStatusInput').value.trim()){
 const first=rows[0]?.totalAsset||0;
 const last=rows[rows.length-1]?.totalAsset||0;
-document.getElementById(‘summaryStatusInput’).value=`本次試算以年領 ${targetTWD.toLocaleString()} TWD 為目標。\n整體期末資產由第1年約 ${Math.round(first).toLocaleString()} USD，推估至最後一年約 ${Math.round(last).toLocaleString()} USD。`;
+document.getElementById('summaryStatusInput').value=`本次試算以年領 ${targetTWD.toLocaleString()} TWD 為目標。\n整體期末資產由第1年約 ${Math.round(first).toLocaleString()} USD，推估至最後一年約 ${Math.round(last).toLocaleString()} USD。`;
 }
-if(!document.getElementById(‘summaryStrategyInput’).value.trim()){
-document.getElementById(‘summaryStrategyInput’).value=`此模型依照每張保單設定的「開始承接年」與「提領順位」進行接力。前段由順位較前的保單支應，中段再由後續保單承接，避免所有保單同時被動用。`;
+if(!document.getElementById('summaryStrategyInput').value.trim()){
+document.getElementById('summaryStrategyInput').value=`此模型依照每張保單設定的「開始承接年」與「提領順位」進行接力。前段由順位較前的保單支應，中段再由後續保單承接，避免所有保單同時被動用。`;
 }
 applyManualSummary();
 }
 function applyManualSummary(){
 const map=[
-[‘summaryStatusInput’,‘summaryStatus’],
-[‘summaryStrategyInput’,‘summaryStrategy’],
-[‘summaryAdviceInput’,‘summaryAdvice’],
-[‘summaryRiskInput’,‘summaryRisk’]
+['summaryStatusInput','summaryStatus'],
+['summaryStrategyInput','summaryStrategy'],
+['summaryAdviceInput','summaryAdvice'],
+['summaryRiskInput','summaryRisk']
 ];
 map.forEach(([i,o])=>{
-document.getElementById(o).innerHTML=document.getElementById(i).value.trim().replace(/\n/g,’<br>’);
+document.getElementById(o).innerHTML=document.getElementById(i).value.trim().replace(/\n/g,'<br>');
 });
 }
 function renderTable(rows,policies,FX){
@@ -660,21 +660,21 @@ policies.forEach((p,idx)=>h+=`<th colspan="5" class="group-start">${p.name}</th>
 h+=`<th colspan="3" class="total-start">整合合計</th><th rowspan="2">狀態</th></tr><tr>`;
 policies.forEach(()=>h+=`<th class="group-start">期初本金</th><th>年利息/增值</th><th>本年領回</th><th>期末餘額</th><th>實際%</th>`);
 h+=`<th class="total-start">總資產</th><th>總領USD</th><th>總領TWD</th></tr>`;
-document.getElementById(‘thead’).innerHTML=h;
+document.getElementById('thead').innerHTML=h;
 
-const tb=document.getElementById(‘tbody’);
-tb.innerHTML=’’;
+const tb=document.getElementById('tbody');
+tb.innerHTML='';
 rows.forEach((r,idx)=>{
-const tr=document.createElement(‘tr’);
+const tr=document.createElement('tr');
 // 表格底色統一，不用顏色標示
 let html=`<td class="yr-cell">${r.roc}年<br><span style="font-size:10px;color:var(--muted)">${r.ad} ${r.age?`${r.age}歲`:''}</span>${r.shortfall>0.5?`<br><span style="font-size:9px;color:var(--red)">缺 ${Math.round(r.shortfall*FX).toLocaleString()}</span>`:''}</td>`;
 r.items.forEach(it=>{
-const pct = it.pctOfTarget>0 ? it.pctOfTarget.toFixed(1)+’%’ : ‘—’;
-const pctStyle = it.pctOfTarget>0 ? ‘pct-cell’ : ‘pct-cell” style=“color:var(–muted)’;
+const pct = it.pctOfTarget>0 ? it.pctOfTarget.toFixed(1)+'%' : '—';
+const pctStyle = it.pctOfTarget>0 ? 'pct-cell' : 'pct-cell" style="color:var(–muted)';
 html+=`<td class="group-start">${Math.round(it.start).toLocaleString()}</td><td class="ic">＋${Math.round(it.growth).toLocaleString()}</td><td class="wd">${it.withdraw>0?'－'+Math.round(it.withdraw).toLocaleString():'—'}</td><td>${Math.round(it.end).toLocaleString()}</td><td class="${pctStyle}">${pct}</td>`;
 });
-const cls=r.totalTWD>=115000?‘twd-ok’:(r.totalTWD>=90000?‘twd-ne’:‘twd-sh’);
-const note = r.shortfall>0.5 ? `缺口 ${Math.round(r.shortfall*FX).toLocaleString()} TWD` : (idx>0 && r.totalAsset<rows[idx-1].totalAsset ? ‘總資產下降’ : ‘達成’);
+const cls=r.totalTWD>=115000?'twd-ok':(r.totalTWD>=90000?'twd-ne':'twd-sh');
+const note = r.shortfall>0.5 ? `缺口 ${Math.round(r.shortfall*FX).toLocaleString()} TWD` : (idx>0 && r.totalAsset<rows[idx-1].totalAsset ? '總資產下降' : '達成');
 html+=`<td class="sv-t total-start">${Math.round(r.totalAsset).toLocaleString()}</td><td class="wd">${Math.round(r.totalWithdraw).toLocaleString()}</td><td class="${cls}">${r.totalTWD.toLocaleString()}</td><td class="status-note">${note}</td>`;
 tr.innerHTML=html;
 tb.appendChild(tr);
@@ -682,8 +682,8 @@ tb.appendChild(tr);
 
 const sumUSD=rows.reduce((s,r)=>s+r.totalWithdraw,0);
 const last=rows[rows.length-1];
-const trG=document.createElement(‘tr’);
-trG.className=‘grand’;
+const trG=document.createElement('tr');
+trG.className='grand';
 trG.innerHTML=`<td colspan="${1+policies.length*5}" style="text-align:right;font-family:'Noto Sans TC',sans-serif;font-size:10.5px;letter-spacing:.06em">${rows.length} 年累計</td><td>${Math.round(last.totalAsset).toLocaleString()}</td><td>${Math.round(sumUSD).toLocaleString()}</td><td>${Math.round(sumUSD*FX).toLocaleString()}</td><td></td>`;
 tb.appendChild(trG);
 }
@@ -691,40 +691,40 @@ function renderCharts(rows,policies,targetTWD,FX){
 const labels=rows.map(r=>`${r.roc}`);
 if(chartPV){try{chartPV.destroy();}catch(e){}} chartPV=null;
 if(chartWD){try{chartWD.destroy();}catch(e){}} chartWD=null;
-const pvEl=document.getElementById(‘chartPV’);
-const wdEl=document.getElementById(‘chartWD’);
+const pvEl=document.getElementById('chartPV');
+const wdEl=document.getElementById('chartWD');
 if(!pvEl||!wdEl) return;
-const font={family:”‘Noto Sans TC’,sans-serif”,size:11};
-const grid=‘rgba(0,0,0,0.06)’;
+const font={family:"'Noto Sans TC',sans-serif",size:11};
+const grid='rgba(0,0,0,0.06)';
 chartPV=new Chart(pvEl,{
-type:‘line’,
+type:'line',
 data:{labels,datasets:policies.map((p,i)=>({
 label:p.name,
 data:rows.map(r=>Math.round(r.items[i]?.end||0)),
 borderColor:colors[i%colors.length][0],
-backgroundColor:colors[i%colors.length][1].replace(’.55’,’.12’),
+backgroundColor:colors[i%colors.length][1].replace('.55','.12'),
 tension:.3,pointRadius:3,borderWidth:2,fill:true
 }))},
 options:{responsive:true,maintainAspectRatio:false,
-plugins:{legend:{labels:{font,color:’#1a1a1a’,padding:10,usePointStyle:true}}},
+plugins:{legend:{labels:{font,color:'#1a1a1a',padding:10,usePointStyle:true}}},
 scales:{x:{ticks:{font},grid:{display:false}},y:{ticks:{font},grid:{color:grid}}}
 }
 });
 chartWD=new Chart(wdEl,{
-type:‘bar’,
+type:'bar',
 data:{labels,datasets:[
 …policies.map((p,i)=>({
 label:p.name,
 data:rows.map(r=>Math.round((r.items[i]?.withdraw||0)*FX)),
 backgroundColor:colors[i%colors.length][1],
 borderColor:colors[i%colors.length][0],
-borderWidth:1.3,borderRadius:3,stack:‘s’
+borderWidth:1.3,borderRadius:3,stack:'s'
 })),
-{label:‘目標’,data:rows.map(()=>targetTWD),type:‘line’,
-borderColor:’#b83030’,borderDash:[6,4],pointRadius:0,borderWidth:2,fill:false}
+{label:'目標',data:rows.map(()=>targetTWD),type:'line',
+borderColor:'#b83030',borderDash:[6,4],pointRadius:0,borderWidth:2,fill:false}
 ]},
 options:{responsive:true,maintainAspectRatio:false,
-plugins:{legend:{labels:{font,color:’#1a1a1a’,padding:10,usePointStyle:true}}},
+plugins:{legend:{labels:{font,color:'#1a1a1a',padding:10,usePointStyle:true}}},
 scales:{
 x:{ticks:{font},grid:{display:false},stacked:true},
 y:{ticks:{font},grid:{color:grid},stacked:true}
@@ -733,16 +733,16 @@ y:{ticks:{font},grid:{color:grid},stacked:true}
 });
 }
 function resetDefault(){
-document.getElementById(‘policyList’).innerHTML=’’;
+document.getElementById('policyList').innerHTML='';
 policySeq=0;
 addPolicy({
-name:‘保單 A’,company:‘全球人壽’,no:‘70003982240’,start:16482,rate:4.2,mode:‘rate’,startYear:1,priority:1,canPrincipal:‘1’
+name:'保單 A',company:'全球人壽',no:'70003982240',start:16482,rate:4.2,mode:'rate',startYear:1,priority:1,canPrincipal:'1'
 });
 addPolicy({
-name:‘保單 B’,company:‘全球人壽’,no:‘88000807770’,start:13696,rate:4.2,mode:‘hybrid’,fixed:‘13696,15624,16247,16896,17576’,startYear:5,priority:2,canPrincipal:‘1’
+name:'保單 B',company:'全球人壽',no:'88000807770',start:13696,rate:4.2,mode:'hybrid',fixed:'13696,15624,16247,16896,17576',startYear:5,priority:2,canPrincipal:'1'
 });
 addPolicy({
-name:‘保單 C’,company:‘保誠人壽’,no:‘82013902’,start:27445,rate:2.6,mode:‘hybrid’,fixed:‘27445,31103,39400,40433,41523,42589,43670,44708,45789,46875,48049,49267,50502,51834,53216,54662,56173,57531’,startYear:9,priority:3,canPrincipal:‘1’
+name:'保單 C',company:'保誠人壽',no:'82013902',start:27445,rate:2.6,mode:'hybrid',fixed:'27445,31103,39400,40433,41523,42589,43670,44708,45789,46875,48049,49267,50502,51834,53216,54662,56173,57531',startYear:9,priority:3,canPrincipal:'1'
 });
 rebuildAllRatioGrids();
 }
@@ -751,69 +751,69 @@ syncHeader();
 resetDefault();
 
 function collectState(){
-const policies = […document.querySelectorAll(’.policy-card’)].map(c=>{
-const id = c.id.replace(‘policy_’,’’);
+const policies = […document.querySelectorAll('.policy-card')].map(c=>{
+const id = c.id.replace('policy_','');
 return {
-name:document.getElementById(`p_name_${id}`)?.value||’’,
-company:document.getElementById(`p_company_${id}`)?.value||’’,
-no:document.getElementById(`p_no_${id}`)?.value||’’,
-start:document.getElementById(`p_start_${id}`)?.value||’’,
-rate:document.getElementById(`p_rate_${id}`)?.value||’’,
-floor:document.getElementById(`p_floor_${id}`)?.value||’’,
-mode:document.getElementById(`p_mode_${id}`)?.value||’’,
-startYear:document.getElementById(`p_startYear_${id}`)?.value||’’,
-priority:document.getElementById(`p_priority_${id}`)?.value||’’,
-canPrincipal:document.getElementById(`p_canPrincipal_${id}`)?.value||’’,
-cap:document.getElementById(`p_cap_${id}`)?.value||’’,
-fixed:document.getElementById(`p_fixed_${id}`)?.value||’’,
-growth:document.getElementById(`p_growth_${id}`)?.value||’’
+name:document.getElementById(`p_name_${id}`)?.value||'',
+company:document.getElementById(`p_company_${id}`)?.value||'',
+no:document.getElementById(`p_no_${id}`)?.value||'',
+start:document.getElementById(`p_start_${id}`)?.value||'',
+rate:document.getElementById(`p_rate_${id}`)?.value||'',
+floor:document.getElementById(`p_floor_${id}`)?.value||'',
+mode:document.getElementById(`p_mode_${id}`)?.value||'',
+startYear:document.getElementById(`p_startYear_${id}`)?.value||'',
+priority:document.getElementById(`p_priority_${id}`)?.value||'',
+canPrincipal:document.getElementById(`p_canPrincipal_${id}`)?.value||'',
+cap:document.getElementById(`p_cap_${id}`)?.value||'',
+fixed:document.getElementById(`p_fixed_${id}`)?.value||'',
+growth:document.getElementById(`p_growth_${id}`)?.value||''
 };
 });
-const lumps = […document.querySelectorAll(’.lump-row’)].map(row=>{
-const id = row.id.replace(‘lump_’,’’);
+const lumps = […document.querySelectorAll('.lump-row')].map(row=>{
+const id = row.id.replace('lump_','');
 return {
-year:document.getElementById(`lump_yr_${id}`)?.value||’’,
-policyNo:document.getElementById(`lump_pol_${id}`)?.value||’’,
-amount:document.getElementById(`lump_amt_${id}`)?.value||’’,
-note:document.getElementById(`lump_note_${id}`)?.value||’’
+year:document.getElementById(`lump_yr_${id}`)?.value||'',
+policyNo:document.getElementById(`lump_pol_${id}`)?.value||'',
+amount:document.getElementById(`lump_amt_${id}`)?.value||'',
+note:document.getElementById(`lump_note_${id}`)?.value||''
 };
 });
 return {
-clientName:document.getElementById(‘clientName’)?.value||’’,
-clientAge:document.getElementById(‘clientAge’)?.value||’’,
-targetTWD:document.getElementById(‘targetTWD’)?.value||’’,
-regularStartYear:document.getElementById(‘regularStartYear’)?.value||‘1’,
-years:document.getElementById(‘years’)?.value||’’,
-fx:document.getElementById(‘fx’)?.value||’’,
-rocStart:document.getElementById(‘rocStart’)?.value||’’,
-summaryStatus:document.getElementById(‘summaryStatusInput’)?.value||’’,
-summaryStrategy:document.getElementById(‘summaryStrategyInput’)?.value||’’,
-summaryAdvice:document.getElementById(‘summaryAdviceInput’)?.value||’’,
-summaryRisk:document.getElementById(‘summaryRiskInput’)?.value||’’,
+clientName:document.getElementById('clientName')?.value||'',
+clientAge:document.getElementById('clientAge')?.value||'',
+targetTWD:document.getElementById('targetTWD')?.value||'',
+regularStartYear:document.getElementById('regularStartYear')?.value||'1',
+years:document.getElementById('years')?.value||'',
+fx:document.getElementById('fx')?.value||'',
+rocStart:document.getElementById('rocStart')?.value||'',
+summaryStatus:document.getElementById('summaryStatusInput')?.value||'',
+summaryStrategy:document.getElementById('summaryStrategyInput')?.value||'',
+summaryAdvice:document.getElementById('summaryAdviceInput')?.value||'',
+summaryRisk:document.getElementById('summaryRiskInput')?.value||'',
 policies, lumps,
-savedAt: new Date().toLocaleString(‘zh-TW’)
+savedAt: new Date().toLocaleString('zh-TW')
 };
 }
 
 function restoreState(state){
-if(state.clientName) document.getElementById(‘clientName’).value = state.clientName;
-if(state.clientAge)  document.getElementById(‘clientAge’).value  = state.clientAge;
-if(state.targetTWD)       document.getElementById(‘targetTWD’).value        = state.targetTWD;
-if(state.regularStartYear && document.getElementById(‘regularStartYear’))
-document.getElementById(‘regularStartYear’).value = state.regularStartYear;
-if(state.years)      document.getElementById(‘years’).value      = state.years;
-if(state.fx)         document.getElementById(‘fx’).value         = state.fx;
-if(state.rocStart)   document.getElementById(‘rocStart’).value   = state.rocStart;
-if(state.summaryStatus)   document.getElementById(‘summaryStatusInput’).value   = state.summaryStatus;
-if(state.summaryStrategy) document.getElementById(‘summaryStrategyInput’).value = state.summaryStrategy;
-if(state.summaryAdvice)   document.getElementById(‘summaryAdviceInput’).value   = state.summaryAdvice;
-if(state.summaryRisk)     document.getElementById(‘summaryRiskInput’).value     = state.summaryRisk;
+if(state.clientName) document.getElementById('clientName').value = state.clientName;
+if(state.clientAge)  document.getElementById('clientAge').value  = state.clientAge;
+if(state.targetTWD)       document.getElementById('targetTWD').value        = state.targetTWD;
+if(state.regularStartYear && document.getElementById('regularStartYear'))
+document.getElementById('regularStartYear').value = state.regularStartYear;
+if(state.years)      document.getElementById('years').value      = state.years;
+if(state.fx)         document.getElementById('fx').value         = state.fx;
+if(state.rocStart)   document.getElementById('rocStart').value   = state.rocStart;
+if(state.summaryStatus)   document.getElementById('summaryStatusInput').value   = state.summaryStatus;
+if(state.summaryStrategy) document.getElementById('summaryStrategyInput').value = state.summaryStrategy;
+if(state.summaryAdvice)   document.getElementById('summaryAdviceInput').value   = state.summaryAdvice;
+if(state.summaryRisk)     document.getElementById('summaryRiskInput').value     = state.summaryRisk;
 
-document.getElementById(‘policyList’).innerHTML = ‘’;
+document.getElementById('policyList').innerHTML = '';
 policySeq = 0;
 (state.policies||[]).forEach(p => addPolicy(p));
 
-document.getElementById(‘lumpGrid’).innerHTML = ‘’;
+document.getElementById('lumpGrid').innerHTML = '';
 lumpSeq = 0;
 (state.lumps||[]).forEach(l => addLump(l));
 
@@ -829,35 +829,35 @@ const state = collectState();
 const json  = JSON.stringify(state, null, 2);
 // 顯示 JSON 在新視窗，讓使用者用「全選→複製→貼到記事本→另存」
 // 同時也嘗試 data URI 下載
-const dataUri = ‘data:application/json;charset=utf-8,’ + encodeURIComponent(json);
-const el = document.getElementById(‘saveStatus’);
+const dataUri = 'data:application/json;charset=utf-8,' + encodeURIComponent(json);
+const el = document.getElementById('saveStatus');
 
 // 方法1: 嘗試 window.open 開新分頁
-const win = window.open(’’,’_blank’);
+const win = window.open('','_blank');
 if(win){
-const pre = win.document.createElement(‘pre’);
-pre.style.cssText = ‘white-space:pre-wrap;word-break:break-all;font-size:12px;padding:20px;font-family:monospace’;
+const pre = win.document.createElement('pre');
+pre.style.cssText = 'white-space:pre-wrap;word-break:break-all;font-size:12px;padding:20px;font-family:monospace';
 pre.textContent = json;
-const h  = win.document.createElement(‘h3’);
-h.textContent  = ‘請全選（Cmd+A）→ 複製（Cmd+C）→ 貼到記事本/文字編輯器 → 另存為 .json 檔’;
-h.style.cssText = ‘padding:16px;background:#e8f4ef;border-bottom:1px solid #ccc;font-family:sans-serif’;
-const dl = win.document.createElement(‘a’);
+const h  = win.document.createElement('h3');
+h.textContent  = '請全選（Cmd+A）→ 複製（Cmd+C）→ 貼到記事本/文字編輯器 → 另存為 .json 檔';
+h.style.cssText = 'padding:16px;background:#e8f4ef;border-bottom:1px solid #ccc;font-family:sans-serif';
+const dl = win.document.createElement('a');
 dl.href      = dataUri;
-dl.download  = ‘policy_setting.json’;
-dl.textContent = ‘⬇ 點此直接下載 .json（若瀏覽器支援）’;
-dl.style.cssText = ‘display:block;padding:10px 16px;background:#0a5c4a;color:#fff;text-decoration:none;font-family:sans-serif’;
-win.document.body.style.margin = ‘0’;
+dl.download  = 'policy_setting.json';
+dl.textContent = '⬇ 點此直接下載 .json（若瀏覽器支援）';
+dl.style.cssText = 'display:block;padding:10px 16px;background:#0a5c4a;color:#fff;text-decoration:none;font-family:sans-serif';
+win.document.body.style.margin = '0';
 win.document.body.appendChild(dl);
 win.document.body.appendChild(h);
 win.document.body.appendChild(pre);
-if(el){ el.textContent=‘✅ 設定已開啟新視窗，請複製內容儲存’; el.style.color=‘var(–green)’; setTimeout(()=>el.textContent=’’,6000); }
+if(el){ el.textContent='✅ 設定已開啟新視窗，請複製內容儲存'; el.style.color='var(–green)'; setTimeout(()=>el.textContent='',6000); }
 } else {
 // 方法2: 在當前頁顯示可複製的文字
-const modal = document.createElement(‘div’);
-modal.style.cssText=‘position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:9999;display:flex;align-items:center;justify-content:center’;
+const modal = document.createElement('div');
+modal.style.cssText='position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:9999;display:flex;align-items:center;justify-content:center';
 modal.innerHTML=`<div style="background:#fff;border-radius:12px;padding:20px;max-width:90vw;max-height:80vh;overflow:auto;position:relative"> <button onclick="this.parentElement.parentElement.remove()" style="position:absolute;top:10px;right:14px;border:none;background:none;font-size:20px;cursor:pointer">✕</button> <p style="font-weight:700;margin-bottom:12px;font-size:13px">請全選複製以下內容，貼到記事本後另存為 .json：</p> <textarea rows="12" style="width:100%;font-size:11px;font-family:monospace" onclick="this.select()" readonly>${json.replace(/</g,'&lt;')}</textarea> <br><a href="${dataUri}" download="policy_setting.json" style="display:inline-block;margin-top:10px;padding:8px 16px;background:#0a5c4a;color:#fff;border-radius:6px;text-decoration:none;font-size:13px">⬇ 下載 .json</a> </div>`;
 document.body.appendChild(modal);
-if(el){ el.textContent=‘請複製上方內容’; el.style.color=‘var(–gold)’; setTimeout(()=>el.textContent=’’,6000); }
+if(el){ el.textContent='請複製上方內容'; el.style.color='var(–gold)'; setTimeout(()=>el.textContent='',6000); }
 }
 }
 
@@ -870,38 +870,38 @@ try{
 const state = JSON.parse(e.target.result);
 if(!confirm(`讀取「${state.clientName||'未知客戶'}」的設定（儲存於 ${state.savedAt||'未知時間'}）？\n目前設定將被取代。`)) return;
 restoreState(state);
-const el = document.getElementById(‘saveStatus’);
+const el = document.getElementById('saveStatus');
 el.textContent = `✅ 已讀取設定檔（${state.savedAt||''}）`;
-el.style.color = ‘var(–B)’;
-setTimeout(()=>el.textContent=’’, 5000);
+el.style.color = 'var(–B)';
+setTimeout(()=>el.textContent='', 5000);
 }catch(err){
-alert(‘讀取失敗，請確認是正確的設定檔：’+err.message);
+alert('讀取失敗，請確認是正確的設定檔：'+err.message);
 }
 };
-reader.readAsText(file, ‘utf-8’);
+reader.readAsText(file, 'utf-8');
 // Reset file input so same file can be re-selected
-event.target.value = ‘’;
+event.target.value = '';
 }
 
 function exportHTML(){
 const state    = collectState();
-const stateJson= JSON.stringify(state).replace(/</g,’\u003c’).replace(/>/g,’\u003e’);
+const stateJson= JSON.stringify(state).replace(/</g,'\u003c').replace(/>/g,'\u003e');
 const html     = document.documentElement.outerHTML;
-const injected = html.replace(’</body>’,
-‘<scr’+‘ipt>window.addEventListener(“load”,function(){try{restoreState(’+stateJson+’);}catch(e){console.error(e);}});</scr’+‘ipt></body>’
+const injected = html.replace('</body>',
+'<scr'+'ipt>window.addEventListener("load",function(){try{restoreState('+stateJson+');}catch(e){console.error(e);}});</scr'+'ipt></body>'
 );
-const uri  = ‘data:text/html;charset=utf-8,’+encodeURIComponent(injected);
-const name = (document.getElementById(‘clientName’)?.value||‘保單試算’);
-const fname= name+’_’+new Date().toISOString().slice(0,10)+’.html’;
+const uri  = 'data:text/html;charset=utf-8,'+encodeURIComponent(injected);
+const name = (document.getElementById('clientName')?.value||'保單試算');
+const fname= name+'_'+new Date().toISOString().slice(0,10)+'.html';
 // 開新視窗（可另存）
-const win = window.open(uri,’_blank’);
+const win = window.open(uri,'_blank');
 if(win){
 win.focus();
-const el=document.getElementById(‘saveStatus’);
-if(el){ el.textContent=‘✅ HTML已開啟新視窗，請用 Cmd+S 或右鍵→另存網頁’; el.style.color=‘var(–purple)’; setTimeout(()=>el.textContent=’’,8000); }
+const el=document.getElementById('saveStatus');
+if(el){ el.textContent='✅ HTML已開啟新視窗，請用 Cmd+S 或右鍵→另存網頁'; el.style.color='var(–purple)'; setTimeout(()=>el.textContent='',8000); }
 } else {
 // 降級：同頁 a.click()
-const a=document.createElement(‘a’); a.href=uri; a.download=fname; a.style.display=‘none’;
+const a=document.createElement('a'); a.href=uri; a.download=fname; a.style.display='none';
 document.body.appendChild(a); a.click();
 setTimeout(()=>document.body.removeChild(a),500);
 }
@@ -909,21 +909,21 @@ setTimeout(()=>document.body.removeChild(a),500);
 
 function printPage(){
 const html = document.documentElement.outerHTML;
-const uri  = ‘data:text/html;charset=utf-8,’+encodeURIComponent(html);
-const win  = window.open(uri,’_blank’);
+const uri  = 'data:text/html;charset=utf-8,'+encodeURIComponent(html);
+const win  = window.open(uri,'_blank');
 if(win){
 win.focus();
 setTimeout(function(){ try{ win.print(); }catch(e){} }, 1000);
-const el=document.getElementById(‘saveStatus’);
-if(el){ el.textContent=‘✅ 已開啟列印視窗’; el.style.color=‘var(–gold)’; setTimeout(()=>el.textContent=’’,5000); }
+const el=document.getElementById('saveStatus');
+if(el){ el.textContent='✅ 已開啟列印視窗'; el.style.color='var(–gold)'; setTimeout(()=>el.textContent='',5000); }
 } else {
-alert(‘請允許瀏覽器開啟彈出視窗，或改用「匯出HTML」下載後再按 Cmd+P 列印。’);
+alert('請允許瀏覽器開啟彈出視窗，或改用「匯出HTML」下載後再按 Cmd+P 列印。');
 }
 }
 
 function saveToLocal(){ saveAsJson(); }
 
-function loadFromLocal(){ alert(‘請使用「讀取設定檔」按鈕選擇之前下載的 .json 檔’); }
+function loadFromLocal(){ alert('請使用「讀取設定檔」按鈕選擇之前下載的 .json 檔'); }
 </script>
 
 </body>
